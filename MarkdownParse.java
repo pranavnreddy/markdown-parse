@@ -22,6 +22,9 @@ public class MarkdownParse {
             if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
                 break;
             }
+            if(markdown.substring(nextCloseBracket, nextCloseBracket+2).equals("]]")){
+                break;
+            }
             String tempString = markdown.substring(openParen+1, closeParen);
             if(!tempString.contains("[") && !tempString.contains("]") && 
                 !tempString.contains("(") && !tempString.contains(")")){validFormat = true;}
