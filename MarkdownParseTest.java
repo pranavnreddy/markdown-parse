@@ -39,4 +39,15 @@ public class MarkdownParseTest {
         List<String> expectedLinks = List.of();
         assertEquals("Check expected links for no_links.md", expectedLinks, links);
     }
+
+    @Test
+    public void testExtraParenthesis() throws IOException {
+        Path filename = Path.of("extra_parenthesis.md");
+        String contents = Files.readString(filename);
+        ArrayList<String> links = MarkdownParse.getLinks(contents);
+        List<String> expected = List.of("normal link", "(li)nk", "normal link");
+        assertEquals(expected,links );
+
+    }
+
 }
