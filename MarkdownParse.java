@@ -18,20 +18,20 @@ public class MarkdownParse {
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
             //Check link format
-            Boolean validFormat = false;
-            if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
-                break;
-            }
-            String tempString = markdown.substring(openParen+1, closeParen);
-            if(!tempString.contains("[") && !tempString.contains("]") && 
-                !tempString.contains("(") && !tempString.contains(")")){validFormat = true;}
-            if(validFormat == false){
-                nextOpenBracket = markdown.indexOf("[", openParen);
-                nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
-                openParen = markdown.indexOf("(", nextCloseBracket);
-                closeParen = markdown.indexOf(")", openParen);
-            }
-            //end
+            // Boolean validFormat = false;
+            // if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
+            //     break;
+            // }
+            // String tempString = markdown.substring(openParen+1, closeParen);
+            // if(!tempString.contains("[") && !tempString.contains("]") && 
+            //     !tempString.contains("(") && !tempString.contains(")")){validFormat = true;}
+            // if(validFormat == false){
+            //     nextOpenBracket = markdown.indexOf("[", openParen);
+            //     nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
+            //     openParen = markdown.indexOf("(", nextCloseBracket);
+            //     closeParen = markdown.indexOf(")", openParen);
+            // }
+            // //end
             if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
                 break;
             }
