@@ -12,28 +12,44 @@ public class MarkdownParse {
         int pastCloseParen = 0;
         while(currentIndex < markdown.length()) {
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
-            
+
             // System.out.println("Value of current index before loop: " + currentIndex);
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
-             int openParen = markdown.indexOf("(", nextCloseBracket);
-             int closeParen = markdown.indexOf(")", openParen);
+            int openParen = markdown.indexOf("(", nextCloseBracket);
+            int closeParen = markdown.indexOf(")", openParen);
+            //Check link format
+            Boolean validFormat = false;
+            if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
+                break;
+            }
+            String tempString = markdown.substring(openParen+1, closeParen);
+            if(!tempString.contains("[") && !tempString.contains("]") && 
+                !tempString.contains("(") && !tempString.contains(")")){validFormat = true;}
+            if(validFormat == false){
+                nextOpenBracket = markdown.indexOf("[", openParen);
+                nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
+                openParen = markdown.indexOf("(", nextCloseBracket);
+                closeParen = markdown.indexOf(")", openParen);
+            }
+            //end
+            if(pastCloseParen == closeParen || nextOpenBracket < 0 || openParen < 0 || closeParen < 0) {
+                break;
+            }
+            pastCloseParen = closeParen;
 
-             if(pastCloseParen == closeParen || nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
-                 break;
-             }
-             pastCloseParen = closeParen;
-            
             // System.out.println("Index of next open bracket: " + nextOpenBracket);
             // System.out.println("Index of next open bracket - 1: " + (nextOpenBracket - 1));
-            if(nextOpenBracket != 0) {
-                if(!markdown.substring(nextOpenBracket-1, nextOpenBracket).equals("!")){
+            if(nextOpenBracket >0 ) {
+                if(!markdown.substring(nextOpenBracket-1, nextOpenBracket).equals("!") &&
+                    markdown.substring(openParen-1, openParen).equals("]")){
                     toReturn.add(markdown.substring(openParen + 1, closeParen));
                 }
-                currentIndex = closeParen + 1;
             } else {
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
-                currentIndex = closeParen + 1;
+                if(markdown.substring(openParen-1, openParen).equals("]")){
+                    toReturn.add(markdown.substring(openParen + 1, closeParen));
+                }
             }
+            currentIndex = closeParen + 1;
             // System.out.println("Value of current index after loop: " + currentIndex);
         }
         return toReturn;
