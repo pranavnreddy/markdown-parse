@@ -45,7 +45,7 @@ public class MarkdownParseTest {
         Path filename = Path.of("extra_parenthesis.md");
         String contents = Files.readString(filename);
         ArrayList<String> links = MarkdownParse.getLinks(contents);
-        List<String> expected = List.of("normal link", "(li)nk", "normal link");
+        List<String> expected = List.of("normal_link", "(li)nk", "normal_link");
         assertEquals(expected,links );
 
     }

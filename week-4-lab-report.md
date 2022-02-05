@@ -22,7 +22,9 @@ This file had two links, and the program worked for each of these. The original 
 This was a file that lacked links. The symptom was an IndexOutOfBoundsException. This is because the original code naively took the index of the first bracket and parenthesis using the String.indexOf method. indexOf returns -1 when the search term is not found. Therefore, for a file with no links, it would not find a parenthesis and return -1. The program would then take this index and attempt to pass it to String.substring to add the link to the list. However, since substring throws an IndexOutOfBoundsException for indices < 0, this resulted in the symptom. Therefore, the bug was the lack of validating that a bracket was or wasn't found by checking the value returned from the indexOf method. We added such validation for each of the 4 opening and closing brackets and parentheses to ensure that we only attempted to get a link when all 4 of these elements of a link were found. This also solved many of the other issues, such as mismatching brackets and parentheses.
 
 ## [image_link.md](image_link.md)
+![image test](Image_Link_test.png)
 The symptom was returning a link for a file with only an image. We expect that for an image file there would be no link added, even though the syntax is similar. This occurred because we did not check for an exclamation point before the opening bracket. After adding that, this issue was fixed.
 
 ## [test2.md](test2.md)
+![separate parenthesis](Separate_Parenthesis.png)
 The symptom here was treating the separated parenthesized text as a link. This was because we did not validate whether or not the closing bracket and opening parenthesis were next to each other, like a proper link. We added one final check at the end of our while loop to do this, and it worked for all the resulting test cases.

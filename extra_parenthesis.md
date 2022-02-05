@@ -1,5 +1,7 @@
 # Header
 
-[link](normal link)
+[link](normal_link)
+
 [extra parenthesis]((li)nk)
-[link](normal link)
+
+[link](normal_link)
