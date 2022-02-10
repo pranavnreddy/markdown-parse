@@ -5,7 +5,7 @@ test : MarkdownParse.class MarkdownParseTest.class
 	java -cp $(classpath) $(runner) MarkdownParseTest
 
 MarkdownParse.class : MarkdownParse.java
-	javac -cp $(classpath) MarkdownParse.java
+	javac MarkdownParse.java
 
 MarkdownParseTest.class : MarkdownParseTest.java
 	javac -cp $(classpath) MarkdownParseTest.java
