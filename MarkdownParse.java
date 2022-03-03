@@ -77,10 +77,14 @@ public class MarkdownParse {
         } else {
             Path p = dirOrFile.toPath();
             int lastDot = p.toString().lastIndexOf(".");
+            String contents = Files.readString(p);
             if (lastDot == -1 || !p.toString().substring(lastDot).equals(".md")) {
                 return result;
             }
-            ArrayList<String> links = getLinks(Files.readString(p));
+            if(contents.contains("[") && contents.contains("]") && contents.contains("(") && contents.contains(")")) {
+                System.out.println(p);
+            }
+            ArrayList<String> links = getLinks(contents);
             result.put(dirOrFile.getPath(), links);
             return result;
         }
