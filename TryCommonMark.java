@@ -7,7 +7,21 @@ public class TryCommonMark {
         Parser parser = Parser.builder().build();
         Node document = parser.parse("This is *Sparta*");
         HtmlRenderer renderer = HtmlRenderer.builder().build();
-        renderer.render(document); // "<p>This is <em>Sparta</em></p>\n"
         System.out.println(renderer.render(document));
+
+        Node node = parser.parse("Example\n=======\n\nSome more text");
+WordCountVisitor visitor = new WordCountVisitor();
+node.accept(visitor);
+System.out.println(visitor.wordCount);  // 4
+    }
+}
+
+class WordCountVisitor extends AbstractVisitor {
+    int wordCount = 0;
+  
+    @Override  
+    public void visit(Text text) {
+        wordCount += text.getLiteral().split("\\W+").length;
+        visitChildren(text);
     }
 }
