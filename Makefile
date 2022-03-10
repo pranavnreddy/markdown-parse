@@ -1,11 +1,17 @@
-classpath := lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar:.  
-runner := org.junit.runner.JUnitCore
+CLASSPATH := lib/*:.  
+RUNNER := org.junit.runner.JUnitCore
 
 test : MarkdownParse.class MarkdownParseTest.class
-	java -cp $(classpath) $(runner) MarkdownParseTest
+	java -cp $(CLASSPATH) $(RUNNER) MarkdownParseTest
 
 MarkdownParse.class : MarkdownParse.java
 	javac MarkdownParse.java
 
 MarkdownParseTest.class : MarkdownParseTest.java
-	javac -cp $(classpath) MarkdownParseTest.java
+	javac -cp $(CLASSPATH) MarkdownParseTest.java
+
+TryCommonMark.class : TryCommonMark.java
+	javac -g -cp $(CLASSPATH) TryCommonMark.java
+
+TryCommonMark : TryCommonMark.class
+	java -cp $(CLASSPATH) TryCommonMark
